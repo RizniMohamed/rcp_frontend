@@ -3,6 +3,8 @@ import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import { useState } from "react";
 import { get_booking_status } from './api'
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 const validationSchema = Yup.object({
   no_of_weekend_nights: Yup.number().typeError("Must be a number").required('Required!'),
@@ -24,6 +26,10 @@ const validationSchema = Yup.object({
 });
 
 function App() {
+
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
+
 
   const [load, setLoad] = useState(false)
   const [result, setResult] = useState(null)
@@ -213,7 +219,7 @@ function App() {
     <Box display='flex' alignItems='center' flexDirection='column' sx={style_scroll}>
       <Typography
         fontWeight={700}
-        fontSize={32}
+        fontSize={isSmallScreen ? 22 :32}
         color="primary"
         marginY={2}
       >
@@ -221,13 +227,13 @@ function App() {
       </Typography>
 
 
-      <Box width="40%" border="1px solid #FF8B03" borderRadius={1} padding={2} bgcolor="#353535" >
+      <Box width={isSmallScreen ? "95%" : "40%"} border="1px solid #FF8B03" borderRadius={1} padding={2} bgcolor="#353535" >
         <form onSubmit={formik.handleSubmit}>
 
           {load && !result && <Box sx={{ width: '100%' }}>
             <Typography
               fontWeight={700}
-              fontSize={28}
+              fontSize={isSmallScreen ? 18 : 28}
               color="primary"
               marginBottom={2}
               textAlign='center'
@@ -240,14 +246,14 @@ function App() {
           {result && <Box display="flex" alignItems="center" flexDirection="column">
             <Typography
               fontWeight={700}
-              fontSize={28}
+              fontSize={isSmallScreen ? 18 : 28}
               color="primary"
               textAlign='center'
             >
               Predicted Result
             </Typography>
             <Slider
-              sx={{ width: "80%", marginTop: 6, marginX: 4 }}
+              sx={{ width: isSmallScreen? "60%" : "80%", marginTop: 6, marginX: 4 }}
               disabled
               value={result}
               marks={[
@@ -267,7 +273,7 @@ function App() {
 
           {!load && !result && <Box overflow="auto" border="1px solid #FF8B03" padding={2} borderRadius={1} sx={style_scroll} display="flex" flexDirection="column" justifyContent="space-evenly">
 
-            <Box display="flex" justifyContent="space-evenly" >
+            <Box display="flex" justifyContent="space-evenly" flexDirection={isSmallScreen ? "column" : "row"}>
               <Box margin={1} minWidth="50%">
 
                 <TextField
@@ -542,19 +548,19 @@ function App() {
             <Box display="flex" justifyContent="space-evenly" border="1px solid #FF8B03" paddingY={1} borderRadius={1} >
 
               <Tooltip title={get_tooltip(1)}>
-                <Button color="primary" variant="contained" size="small" onClick={() => set_predifend(1)} sx={{ width: 100, fontWeight: 500, fontSize: 14 }}>
+                <Button color="primary" variant="contained" size="small" onClick={() => set_predifend(1)} sx={{ width: isSmallScreen ? 80 : 100, fontWeight: 500, fontSize: 11 }}>
                   Not Cancel
                 </Button>
               </Tooltip>
 
               <Tooltip title={get_tooltip(2)}>
-                <Button color="primary" variant="contained" size="small" onClick={() => set_predifend(2)} sx={{ width: 100, fontWeight: 500, fontSize: 14 }}>
+                <Button color="primary" variant="contained" size="small" onClick={() => set_predifend(2)} sx={{ width: isSmallScreen ? 80 : 100, fontWeight: 500, fontSize: 11 }}>
                   Not Sure
                 </Button>
               </Tooltip>
 
               <Tooltip title={get_tooltip(3)}>
-                <Button color="primary" variant="contained" size="small" onClick={() => set_predifend(3)} sx={{ width: 100, fontWeight: 500, fontSize: 14 }}>
+                <Button color="primary" variant="contained" size="small" onClick={() => set_predifend(3)} sx={{ width: isSmallScreen ? 80 : 100, fontWeight: 500, fontSize: 11 }}>
                   Cancel
                 </Button>
               </Tooltip>
