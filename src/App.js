@@ -134,6 +134,7 @@ function App() {
     }
 
     formik.submitForm()
+    formik.resetForm()
   }
 
 
