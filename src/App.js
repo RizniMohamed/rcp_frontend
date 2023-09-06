@@ -572,7 +572,7 @@ function App() {
 
 
           {!load && !result && <Button size="small" color="primary" variant="contained" fullWidth type="submit" sx={{ marginTop: 2, marginBottom: 0, fontWeight: 900, fontSize: 18 }}>
-            Preditct
+            Predict
           </Button>}
         </form>
 
